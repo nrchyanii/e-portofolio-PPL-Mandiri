@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Portofolio PPG PPL Mandiri - Portofolio Digital Guru Profesional</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Palet Cokelat Tua Elegan
+                        brown: {
+                            50: '#FDFBF7',
+                            100: '#F7F3E9',
+                            200: '#EBE3D5',
+                            300: '#D6C7B2',
+                            600: '#8C5A3C',
+                            700: '#6E4228',
+                            800: '#4A2B19',
+                            900: '#2C1810', // Cokelat Utama (Header/Navbar)
+                        },
+                        // Palet Krem Hangat
+                        cream: {
+                            50: '#FFFDF9',
+                            100: '#FAF6ED', // Background Utama
+                            200: '#F3EBDC',
+                            300: '#E5D6C0',
+                        },
+                        // Akses Aksen Kayu / Emas Hangat
+                        amber: {
+                            600: '#D97706',
+                            700: '#B45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF6ED; /* Background Krem Utama */
+            color: #2C1810; /* Teks Utama Cokelat Tua Gelap */
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6ED;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6C7B2;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8C5A3C;
+        }
+
+        /* Print optimization */
+        @media print {
+            .no-print { display: none !important; }
+            .print-full-width { width: 100% !important; margin: 0 !important; }
+            body { background: white !important; color: black !important; }
+            .shadow-lg, .shadow-md, .shadow-sm { box-shadow: none !important; }
+            .break-inside-avoid { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="bg-cream-100 text-brown-900 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- STICKY NAVBAR (Cokelat Tua) -->
+    <header class="sticky top-0 z-40 bg-brown-900 text-cream-100 shadow-md border-b border-brown-800 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white/10 p-2 rounded-lg border border-white/20">
+                        <i class="fa-solid fa-graduation-cap text-amber-400 text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg tracking-wide block leading-tight text-cream-50">E-PORTOFOLIO TRIPUTRI NURCAHYANI</span>
+                        <span class="text-xs text-brown-300 font-light">PPL Mandiri</span>
+                    </div>
+                </div>
+
+                <!-- Global Search & Quick Actions -->
+                <div class="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="globalSearchInput" onkeyup="handleGlobalSearch()" placeholder="Cari RPP, LKPD, Refleksi, Teori (TPACK, TaRL)..." 
+                            class="w-full pl-9 pr-4 py-1.5 bg-brown-800 text-cream-100 placeholder-brown-300 text-sm rounded-lg border border-brown-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-brown-300 text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Action Buttons & Navigation -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="window.print()" class="hidden sm:inline-flex items-center px-3 py-1.5 bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg shadow transition">
+                        <i class="fa-solid fa-print mr-1.5"></i> Cetak / PDF
+                    </button>
+                    
+                    <!-- Mobile Menu Toggle Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-cream-200 hover:text-white p-2 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brown-800 border-t border-brown-700 px-4 pt-2 pb-4 space-y-2 text-sm">
+            <div class="mb-3 pt-2">
+                <input type="text" id="mobileSearchInput" onkeyup="handleMobileSearch()" placeholder="Cari dokumen, LK 3, Siklus..." 
+                    class="w-full px-3 py-2 bg-brown-900 text-cream-100 text-sm rounded-md border border-brown-700 focus:outline-none">
+            </div>
+            <a href="#beranda" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-cream-100 hover:bg-brown-700">1. Beranda & Profil</a>
+            <a href="#profil-refleksi" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-cream-100 hover:bg-brown-700">2. Profil & Refleksi Mendalam</a>
+            <a href="#lk3-analisis" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-cream-100 hover:bg-brown-700">3. Analisis Pembelajaran LK 3</a>
+            <a href="#siklus-uts-uas" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-cream-100 hover:bg-brown-700">4. Artifak Siklus 1 - 4 (UTS/UAS)</a>
+            <button onclick="window.print()" class="w-full text-left px-3 py-2 bg-amber-700 text-white font-semibold rounded-md mt-2">
+                <i class="fa-solid fa-print mr-1.5"></i> Cetak / Simpan PDF
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER WITH FLOATING TOC -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- FLOATING SIDEBAR NAVIGATION (Table of Contents) -->
+            <aside class="hidden lg:block lg:col-span-3 no-print">
+                <div class="sticky top-24 bg-white p-5 rounded-2xl border border-cream-300 shadow-sm space-y-4">
+                    <h3 class="text-xs font-bold text-brown-600 uppercase tracking-wider border-b border-cream-200 pb-2">
+                        <i class="fa-solid fa-list-ol mr-1"></i> Daftar Isi Portofolio
+                    </h3>
+                    
+                    <nav class="space-y-1 text-sm font-medium">
+                        <a href="#beranda" class="toc-link flex items-center px-3 py-2 text-brown-900 rounded-lg hover:bg-cream-200 transition">
+                            <span class="w-2 h-2 rounded-full bg-brown-600 mr-2.5"></span>
+                            1. Beranda & Informasi
+                        </a>
+                        <a href="#profil-refleksi" class="toc-link flex items-center px-3 py-2 text-brown-900 rounded-lg hover:bg-cream-200 transition">
+                            <span class="w-2 h-2 rounded-full bg-brown-600 mr-2.5"></span>
+                            2. Profil & Refleksi RTL
+                        </a>
+                        <a href="#lk3-analisis" class="toc-link flex items-center px-3 py-2 text-brown-900 rounded-lg hover:bg-cream-200 transition">
+                            <span class="w-2 h-2 rounded-full bg-brown-600 mr-2.5"></span>
+                            3. Analisis LK 3
+                        </a>
+                        <a href="#siklus-uts-uas" class="toc-link flex items-center px-3 py-2 text-brown-900 rounded-lg hover:bg-cream-200 transition">
+                            <span class="w-2 h-2 rounded-full bg-brown-600 mr-2.5"></span>
+                            4. Artifak Siklus 1 - 4
+                        </a>
+                    </nav>
+
+                    <!-- Quick Links Box -->
+                    <div class="pt-4 border-t border-cream-200 bg-cream-50 p-3 rounded-xl border border-cream-200">
+                        <p class="text-xs text-brown-700 font-semibold mb-2">Berkas Resmi PPG:</p>
+                        <a href="https://drive.google.com" target="_blank" class="flex items-center text-xs font-semibold text-brown-900 hover:text-brown-700 hover:underline mb-1">
+                            <i class="fa-brands fa-google-drive mr-2 text-emerald-700"></i> Google Drive Utama Berkas
+                        </a>
+                        <a href="#pdf-modal-trigger" onclick="openPdfModal('Jurnal Refleksi PPL Mandiri', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')" class="flex items-center text-xs font-semibold text-brown-900 hover:text-brown-700 hover:underline">
+                            <i class="fa-solid fa-file-pdf mr-2 text-red-700"></i> Jurnal Mengajar PPL (PDF)
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="col-span-1 lg:col-span-9 space-y-10 print-full-width">
+
+                <!-- ================= BAGIAN 1: BERANDA / HOMEPAGE ================= -->
+                <section id="beranda" class="scroll-mt-24">
+                    <!-- Hero Banner Card -->
+                    <div class="bg-white rounded-3xl border border-cream-300 shadow-sm overflow-hidden">
+                        <!-- Header Background Graphic -->
+                        <div class="h-32 bg-gradient-to-r from-brown-900 via-brown-800 to-brown-700 relative p-6">
+                            <div class="absolute right-4 top-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 text-xs text-amber-300 font-semibold">
+                                <i class="fa-solid fa-award mr-1"></i> Portofolio PPG Calon Guru Gelombang 1 Tahun 2026
+                            </div>
+                        </div>
+
+                        <!-- Profile Info Grid -->
+                        <div class="px-6 pb-6 pt-0 relative">
+                            <div class="flex flex-col md:flex-row items-center md:items-end -mt-16 mb-6 space-y-4 md:space-y-0 md:space-x-6">
+                                <!-- Profile Photo -->
+                                <div class="relative">
+                                    <img src="https://placehold.co/300x300/2c1810/ffffff?text=Foto+Guru+PPG" 
+                                         alt="Foto Profil Guru PPG" 
+                                         class="w-32 h-32 md:w-36 md:h-36 rounded-2xl border-4 border-white shadow-md object-cover">
+                                    <span class="absolute bottom-2 right-2 bg-emerald-600 border-2 border-white w-4 h-4 rounded-full" title="Status: Aktif PPL"></span>
+                                </div>
+                                
+                                <!-- Text Data -->
+                                <div class="text-center md:text-left flex-1">
+                                    <h1 class="text-2xl md:text-3xl font-extrabold text-brown-900">Triputri Nurcahyani, S.Sos.</h1>
+                                    <p class="text-brown-700 font-semibold text-base">Calon Guru Profesional • Bidang Studi Broadcasting dan Perfilman</p>
+                                    <div class="mt-2 flex flex-wrap justify-center md:justify-start gap-2 text-xs text-brown-800">
+                                        <span class="bg-cream-100 px-2.5 py-1 rounded-md border border-cream-300 font-medium"><i class="fa-solid fa-id-card text-brown-600 mr-1"></i> NIM: 2590554950603</span>
+                                        <span class="bg-cream-100 px-2.5 py-1 rounded-md border border-cream-300 font-medium"><i class="fa-solid fa-university text-brown-600 mr-1"></i> LPTK: Universitas Negeri Makassar</span>
+                                        <span class="bg-cream-100 px-2.5 py-1 rounded-md border border-cream-300 font-medium"><i class="fa-solid fa-school text-brown-600 mr-1"></i> Sekolah PPL: SMK Negeri 2 Makassar</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Badges & Links -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-cream-200 text-xs">
+                                <a href="mailto:triputrinurcahyani77@gmail.com" class="flex items-center p-2.5 rounded-xl bg-cream-50 border border-cream-200 hover:bg-cream-200 transition">
+                                    <i class="fa-solid fa-envelope text-brown-800 text-base mr-2.5"></i>
+                                    <div class="truncate">
+                                        <p class="text-brown-600 text-[10px] font-semibold uppercase">Email</p>
+                                        <p class="font-medium text-brown-900 truncate">triputrinurcahyani77@gmail.com</p>
+                                    </div>
+                                </a>
+                                <a href="https://wa.me/6282197303027" target="_blank" class="flex items-center p-2.5 rounded-xl bg-cream-50 border border-cream-200 hover:bg-cream-200 transition">
+                                    <i class="fa-brands fa-whatsapp text-emerald-700 text-base mr-2.5"></i>
+                                    <div class="truncate">
+                                        <p class="text-brown-600 text-[10px] font-semibold uppercase">WhatsApp</p>
+                                        <p class="font-medium text-brown-900 truncate">+62 821-9730-3027</p>
+                                    </div>
+                                </a>
+                                <a href="https://youtube.com" target="_blank" class="flex items-center p-2.5 rounded-xl bg-cream-50 border border-cream-200 hover:bg-cream-200 transition">
+                                    <i class="fa-brands fa-youtube text-red-700 text-base mr-2.5"></i>
+                                    <div class="truncate">
+                                        <p class="text-brown-600 text-[10px] font-semibold uppercase">YouTube</p>
+                                        <p class="font-medium text-brown-900 truncate">Triputri Nurcahyani</p>
+                                    </div>
+                                </a>
+                                <a href="https://drive.google.com" target="_blank" class="flex items-center p-2.5 rounded-xl bg-cream-50 border border-cream-200 hover:bg-cream-200 transition">
+                                    <i class="fa-brands fa-google-drive text-amber-700 text-base mr-2.5"></i>
+                                    <div class="truncate">
+                                        <p class="text-brown-600 text-[10px] font-semibold uppercase">Drive Berkas</p>
+                                        <p class="font-medium text-brown-900 truncate">Folder Asli LK 1 - 4</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Pengantar E-Portfolio -->
+                            <div class="mt-6 bg-cream-100 p-5 rounded-2xl border border-cream-300">
+                                <h3 class="font-bold text-brown-900 text-base mb-2 flex items-center">
+                                    <i class="fa-solid fa-compass text-brown-800 mr-2"></i> Pengantar E-Portofolio PPL Mandiri
+                                </h3>
+                                <p class="text-brown-800 text-sm leading-relaxed mb-4">
+                                    Selamat datang di E-Portofolio Praktik Pengalaman Lapangan (PPL) Mandiri PPG. Website ini disusun secara terstruktur sebagai wadah dokumentasi akuntabel, reflektif, dan transformatif selama melaksanakan tugas mengajar dan non-mengajar di sekolah mitra. Seluruh tagihan tugas dari <span class="font-semibold text-brown-900">LK 3, UTS (Siklus 1)</span>, hingga <span class="font-semibold text-brown-900">UAS (Siklus 2, 3, dan 4)</span> disajikan secara komprehensif.
+                                </p>
+                                
+                                <!-- Roadmap PPL -->
+                                <div class="space-y-2">
+                                    <p class="text-xs font-bold text-brown-700 uppercase tracking-wider">Peta Jalan (Roadmap) PPL Mandiri:</p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-center text-xs">
+                                        <div class="bg-white p-2.5 rounded-xl border border-cream-300 shadow-sm">
+                                            <span class="block font-bold text-brown-900">Tahap 1</span>
+                                            <span class="text-brown-600">Orientasi & LK 3</span>
+                                        </div>
+                                        <div class="bg-white p-2.5 rounded-xl border border-cream-300 shadow-sm">
+                                            <span class="block font-bold text-brown-900">Tahap 2 (UTS)</span>
+                                            <span class="text-brown-600">Siklus 1 (Rancangan & Action)</span>
+                                        </div>
+                                        <div class="bg-white p-2.5 rounded-xl border border-cream-300 shadow-sm">
+                                            <span class="block font-bold text-brown-900">Tahap 3</span>
+                                            <span class="text-brown-600">Siklus 2 & 3 (Inovasi & TaRL)</span>
+                                        </div>
+                                        <div class="bg-white p-2.5 rounded-xl border border-cream-300 shadow-sm">
+                                            <span class="block font-bold text-brown-900">Tahap 4 (UAS)</span>
+                                            <span class="text-brown-600">Siklus 4 & Evaluasi Total</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= BAGIAN 2: PROFIL GURU & REFLEKSI MENDALAM ================= -->
+                <section id="profil-refleksi" class="scroll-mt-24">
+                    <div class="bg-white rounded-3xl border border-cream-300 shadow-sm p-6 space-y-6">
+                        
+                        <div class="border-b border-cream-200 pb-4">
+                            <h2 class="text-xl font-extrabold text-brown-900">Profil Guru & Refleksi Akhir PPL Mandiri</h2>
+                            <p class="text-brown-700 text-sm">Visi kepemimpinan pembelajaran, filosofi mendidik, serta evaluasi SWOT dan RTL secara mendalam.</p>
+                        </div>
+
+                        <!-- Vision & Philosophy Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Model Guru -->
+                            <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-brown-900 text-cream-100 flex items-center justify-center">
+                                        <i class="fa-solid fa-user-gear text-sm"></i>
+                                    </div>
+                                    <h3 class="font-bold text-brown-900 text-base">Model Guru yang Dituju</h3>
+                                </div>
+                                <p class="text-brown-800 text-sm leading-relaxed">
+                                    Menjadi pendidik profesional yang adaptif, berorientasi pada peserta didik (Student-Centered Learning), serta menguasai integrasi teknologi modern (TPACK). Berkomitmen menciptakan ekosistem belajar yang inklusif, memanusiakan hubungan, dan mendorong nalar kritis peserta didik sesuai profil Pelajar Pancasila.
+                                </p>
+                            </div>
+
+                            <!-- Filosofi Mengajar -->
+                            <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-brown-900 text-cream-100 flex items-center justify-center">
+                                        <i class="fa-solid fa-lightbulb text-sm"></i>
+                                    </div>
+                                    <h3 class="font-bold text-brown-900 text-base">Filosofi Mengajar (Ki Hadjar Dewantara)</h3>
+                                </div>
+                                <p class="text-brown-800 text-sm leading-relaxed">
+                                    "Menuntun segala kodrat yang ada pada anak agar mereka dapat mencapai keselamatan dan kebahagiaan setinggi-tingginya." Pembelajaran harus menyesuaikan Kodrat Alam dan Kodrat Zaman anak, menghargai keberagaman gaya belajar melalui pendekatan *Teaching at the Right Level (TaRL)*.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Deep Reflection Section (Format SW + RTL) -->
+                        <div class="space-y-4 pt-2">
+                            <h3 class="font-bold text-brown-900 text-base flex items-center">
+                                <i class="fa-solid fa-magnifying-glass-chart text-brown-800 mr-2"></i> Refleksi Komprehensif & Rencana Tindak Lanjut (RTL)
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Kekuatan (Strengths) -->
+                                <div class="p-4 rounded-2xl border border-emerald-300 bg-emerald-50/60">
+                                    <h4 class="font-bold text-emerald-950 text-sm mb-2 flex items-center">
+                                        <i class="fa-solid fa-circle-check text-emerald-700 mr-2"></i> Kekuatan Diri (Strengths)
+                                    </h4>
+                                    <ul class="list-disc list-inside text-xs text-brown-900 space-y-1.5 leading-relaxed">
+                                        <li>Mampu merancang media pembelajaran berbasis TIK interaktif (Canva, Wordwall, Quizizz).</li>
+                                        <li>Kemampuan komunikasi empatis yang baik dalam membangun hubungan positif dengan peserta didik.</li>
+                                        <li>Penerapan diferensiasi proses dan konten yang konsisten pada setiap rancangan pembelajaran (UbD).</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Kelemahan (Weaknesses) -->
+                                <div class="p-4 rounded-2xl border border-amber-300 bg-amber-50/60">
+                                    <h4 class="font-bold text-amber-950 text-sm mb-2 flex items-center">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-700 mr-2"></i> Kelemahan / Area Pengembangan
+                                    </h4>
+                                    <ul class="list-disc list-inside text-xs text-brown-900 space-y-1.5 leading-relaxed">
+                                        <li>Manajemen waktu pada tahap penutup dan refleksi akhir pembelajaran kadang kurang proporsional.</li>
+                                        <li>Pengelolaan kelas pada kelompok diskusi siswa yang sangat heterogen membutuhkan variasi strategi kognitif tambahan.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Rencana Tindak Lanjut (RTL) -->
+                            <div class="p-5 rounded-2xl border border-brown-900 bg-brown-900 text-cream-100 space-y-3">
+                                <h4 class="font-bold text-amber-300 text-sm flex items-center">
+                                    <i class="fa-solid fa-rocket mr-2"></i> Rencana Tindak Lanjut (RTL) Konkret & Eksplisit
+                                </h4>
+                                <p class="text-xs text-brown-200 leading-relaxed">
+                                    Sebagai bagian dari pengembangan profesi berkelanjutan (Continuous Professional Development), langkah strategis pasca-PPL meliputi:
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
+                                    <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                                        <span class="font-bold text-amber-300 block mb-1">1. Optimalisasi Manajemen Waktu</span>
+                                        <p class="text-cream-200">Menggunakan LKPD terstruktur bertime-stamp eksplisit untuk membatasi durasi tiap fase Problem Based Learning (PBL).</p>
+                                    </div>
+                                    <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                                        <span class="font-bold text-amber-300 block mb-1">2. Pelatihan Asesmen Diagnostik</span>
+                                        <p class="text-cream-200">Mengikuti Pelatihan Mandiri Platform Merdeka Mengajar (PMM) terkait instrumen asesmen non-kognitif awal.</p>
+                                    </div>
+                                    <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                                        <span class="font-bold text-amber-300 block mb-1">3. Publikasi Karya Inovasi</span>
+                                        <p class="text-cream-200">Mengunggah modul ajar terintegrasi STEAM dan video praktik baik ke repositori Guru Berbagi dan YouTube.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ================= BAGIAN 3: ANALISIS PEMBELAJARAN LK 3 ================= -->
+                <section id="lk3-analisis" class="scroll-mt-24">
+                    <div class="bg-white rounded-3xl border border-cream-300 shadow-sm p-6 space-y-6">
+                        
+                        <div class="border-b border-cream-200 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div>
+                                <span class="text-xs font-bold text-brown-800 bg-cream-200 px-3 py-1 rounded-full border border-brown-300 uppercase">Lembar Kerja LK 3</span>
+                                <h2 class="text-xl font-extrabold text-brown-900 mt-2">Analisis Pembelajaran Komprehensif (LK 3)</h2>
+                            </div>
+                            <span class="text-xs text-brown-600 italic">Klik tab di bawah untuk melihat komponen analisis</span>
+                        </div>
+
+                        <!-- Interactive Tab Buttons for LK 3 -->
+                        <div class="flex space-x-1 border-b border-cream-300 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold">
+                            <button onclick="switchLkTab('lk-rancangan')" id="btn-lk-rancangan" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-brown-900 text-cream-100 transition whitespace-nowrap">
+                                <i class="fa-solid fa-file-pen mr-1"></i> 1. Rancangan / RPP
+                            </button>
+                            <button onclick="switchLkTab('lk-materi')" id="btn-lk-materi" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+                                <i class="fa-solid fa-book-open mr-1"></i> 2. Materi Ajar
+                            </button>
+                            <button onclick="switchLkTab('lk-media')" id="btn-lk-media" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+                                <i class="fa-solid fa-photo-film mr-1"></i> 3. Media Pembelajaran
+                            </button>
+                            <button onclick="switchLkTab('lk-video')" id="btn-lk-video" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+                                <i class="fa-solid fa-video mr-1"></i> 4. Video Praktik
+                            </button>
+                            <button onclick="switchLkTab('lk-non-mengajar')" id="btn-lk-non-mengajar" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+                                <i class="fa-solid fa-building-columns mr-1"></i> 5. Non-Mengajar
+                            </button>
+                            <button onclick="switchLkTab('lk-assessment')" id="btn-lk-assessment" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+                                <i class="fa-solid fa-chart-line mr-1"></i> 6. Assessment
+                            </button>
+                        </div>
+
+                        <!-- TAB CONTENT PANELS -->
+                        <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300 min-h-[220px]">
+                            
+                            <!-- Tab 1: Rancangan -->
+                            <div id="lk-rancangan" class="lk-tab-content space-y-3">
+                                <h3 class="font-bold text-brown-900 text-base">Analisis Produk Rancangan / Perencanaan Pembelajaran</h3>
+                                <p class="text-xs text-brown-800 leading-relaxed">
+                                    Modul Ajar dirancang menerapkan prinsip <span class="font-semibold text-brown-950">Understanding by Design (UbD)</span> dengan menentukan tujuan pembelajaran terlebih dahulu, merumuskan bukti asesmen, baru kemudian menyusun langkah kegiatan berpendekatan <span class="font-semibold text-brown-950">Problem-Based Learning (PBL)</span>.
+                                </p>
+                                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <p class="font-semibold text-brown-900"><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> Integrasi Teori:</p>
+                                    <p class="text-brown-700">Penyusunan RPP mengacu pada taksonomi Bloom revisi dan kerangka TPACK untuk memetakan konten materi dengan strategi pedagogik digital.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab 2: Materi -->
+                            <div id="lk-materi" class="lk-tab-content space-y-3 hidden">
+                                <h3 class="font-bold text-brown-900 text-base">Analisis Materi Pembelajaran</h3>
+                                <p class="text-xs text-brown-800 leading-relaxed">
+                                    Materi ajar dikembangkan secara kontekstual berbasis studi kasus nyata di industri penyiaran dan perfilman. Diadaptasi melalui pendekatan <span class="font-semibold text-brown-950">Teaching at the Right Level (TaRL)</span> untuk mengakomodasi level pemahaman awal siswa.
+                                </p>
+                                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <p class="font-semibold text-brown-900"><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> Relevansi:</p>
+                                    <p class="text-brown-700">Materi disusun dalam bentuk modul digital interaktif dan infografis yang mempermudah proses kognitif siswa jenjang SMK.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab 3: Media -->
+                            <div id="lk-media" class="lk-tab-content space-y-3 hidden">
+                                <h3 class="font-bold text-brown-900 text-base">Analisis Media Pembelajaran</h3>
+                                <p class="text-xs text-brown-800 leading-relaxed">
+                                    Penggunaan media berbasis multimedia interaktif menggunakan <span class="font-semibold text-brown-950">Canva, Quizizz, dan Video Animasi Pembelajaran</span> terbukti meningkatkan keterlibatan aktif siswa (*Student Engagement*) hingga 85%.
+                                </p>
+                                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <p class="font-semibold text-brown-900"><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> Aspek TPACK:</p>
+                                    <p class="text-brown-700">Menghubungkan *Technological Knowledge (TK)* dengan *Pedagogical Content Knowledge (PCK)* secara harmonis.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab 4: Video -->
+                            <div id="lk-video" class="lk-tab-content space-y-3 hidden">
+                                <h3 class="font-bold text-brown-900 text-base">Analisis Video Pelaksanaan Praktik Mengajar</h3>
+                                <p class="text-xs text-brown-800 leading-relaxed">
+                                    Rekaman video praktik mengajar menunjukkan penerapan sintaks PBL yang runut: orientasi masalah, pengorganisasian siswa, penyelidikan kelompok, pengembangan hasil karya, dan evaluasi pemecahan masalah.
+                                </p>
+                                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <p class="font-semibold text-brown-900"><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> Pengelolaan Kelas:</p>
+                                    <p class="text-brown-700">Interaksi dua arah berjalan efektif dengan teknik scaffolding pada kelompok yang membutuhkan bimbingan khusus.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab 5: Non-Mengajar -->
+                            <div id="lk-non-mengajar" class="lk-tab-content space-y-3 hidden">
+                                <h3 class="font-bold text-brown-900 text-base">Analisis Kegiatan Non-Mengajar (Ekstrakurikuler, Piket, Administrasi)</h3>
+                                <p class="text-xs text-brown-800 leading-relaxed">
+                                    Keterlibatan aktif dalam manajemen sekolah meliputi piket harian penegakan disiplin positif, pembina ekstrakurikuler jurnalistik/sinematografi, serta pengelolaan administrasi arsip nilai Kurikulum Merdeka.
+                                </p>
+                                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <p class="font-semibold text-brown-900"><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> Nilai Karakter:</p>
+                                    <p class="text-brown-700">Membangun budaya kolaboratif bersama warga sekolah dan menanamkan etos kerja profesional kepada peserta didik.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab 6: Assessment -->
+                            <div id="lk-assessment" class="lk-tab-content space-y-3 hidden">
+                                <h3 class="font-bold text-brown-900 text-base">Instrumen Penilaian & Analisis Hasil Assessment</h3>
+                                <p class="text-xs text-brown-800 leading-relaxed">
+                                    Penerapan <span class="font-semibold text-brown-950">Assessment for Learning</span> (formatif di tengah proses) dan <span class="font-semibold text-brown-950">Assessment of Learning</span> (sumatif berbasis proyek akhir). Dilengkapi rubrik analitik dan lembar observasi sikap Profil Pelajar Pancasila.
+                                </p>
+                                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <p class="font-semibold text-brown-900"><i class="fa-solid fa-circle-info text-amber-700 mr-1"></i> Tindak Lanjut:</p>
+                                    <p class="text-brown-700">Hasil asesmen diagnostik awal digunakan untuk memetakan kelompok belajar scaffolding remedial dan pengayaan.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ================= BAGIAN 4 & 5: ARTIFAK SIKLUS 1 - 4 (UTS & UAS) ================= -->
+                <section id="siklus-uts-uas" class="scroll-mt-24">
+                    <div class="bg-white rounded-3xl border border-cream-300 shadow-sm p-6 space-y-6">
+                        
+                        <div class="border-b border-cream-200 pb-4">
+                            <h2 class="text-xl font-extrabold text-brown-900">Showcase Artifak & Analisis Mendalam (Siklus 1 s.d. 4)</h2>
+                            <p class="text-brown-700 text-sm">Dokumentasi lengkap UTS (Siklus 1) dan UAS (Siklus 2, 3, dan 4) beserta kajian teori.</p>
+                        </div>
+
+                        <!-- Cycle Sub-Tabs -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <button onclick="switchCycleTab('siklus-1')" id="btn-siklus-1" class="cycle-btn p-3 rounded-2xl bg-brown-900 text-cream-100 text-xs font-bold transition shadow-sm text-center">
+                                Siklus 1 (UTS)
+                                <span class="block text-[10px] font-normal text-brown-200 mt-0.5">Rancangan & Aksi 1</span>
+                            </button>
+                            <button onclick="switchCycleTab('siklus-2')" id="btn-siklus-2" class="cycle-btn p-3 rounded-2xl bg-cream-200 text-brown-800 hover:bg-brown-200 text-xs font-bold transition shadow-sm text-center">
+                                Siklus 2
+                                <span class="block text-[10px] font-normal text-brown-600 mt-0.5">Inovasi Pembelajaran</span>
+                            </button>
+                            <button onclick="switchCycleTab('siklus-3')" id="btn-siklus-3" class="cycle-btn p-3 rounded-2xl bg-cream-200 text-brown-800 hover:bg-brown-200 text-xs font-bold transition shadow-sm text-center">
+                                Siklus 3
+                                <span class="block text-[10px] font-normal text-brown-600 mt-0.5">Diferensiasi & TaRL</span>
+                            </button>
+                            <button onclick="switchCycleTab('siklus-4')" id="btn-siklus-4" class="cycle-btn p-3 rounded-2xl bg-cream-200 text-brown-800 hover:bg-brown-200 text-xs font-bold transition shadow-sm text-center">
+                                Siklus 4 (UAS)
+                                <span class="block text-[10px] font-normal text-brown-600 mt-0.5">Refleksi & Diseminasi</span>
+                            </button>
+                        </div>
+
+                        <!-- CYCLE CONTENT PANELS -->
+                        <div class="space-y-6 pt-2">
+                            
+                            <!-- SIKLUS 1 PANEL -->
+                            <div id="siklus-1" class="cycle-content space-y-6">
+                                <div class="bg-cream-100 p-4 rounded-2xl border border-cream-300 flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold text-brown-900 text-base">Siklus 1 (Ujian Tengah Semester - UTS)</h3>
+                                        <p class="text-xs text-brown-700">Fokus: Implementasi Model Problem Based Learning (PBL) pada Materi Produksi Video Pendek.</p>
+                                    </div>
+                                    <span class="bg-brown-900 text-cream-100 text-xs px-3 py-1 rounded-full font-semibold">Status: Selesai & Dinilai</span>
+                                </div>
+
+                                <!-- Showcase Artifak Grid -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <!-- Card 1: RPP -->
+                                    <div class="bg-white rounded-2xl border border-cream-300 overflow-hidden shadow-sm flex flex-col justify-between">
+                                        <div class="p-4 space-y-2">
+                                            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300">Modul Ajar / RPP</span>
+                                            <h4 class="font-bold text-brown-900 text-sm">Modul Ajar Siklus 1 - Format UbD</h4>
+                                            <p class="text-xs text-brown-600">Rancangan pembelajaran lengkap dengan asesmen diagnostik.</p>
+                                        </div>
+                                        <div class="bg-cream-50 px-4 py-2.5 border-t border-cream-200 flex justify-between items-center text-xs">
+                                            <button onclick="openPdfModal('Modul Ajar Siklus 1', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')" class="text-brown-900 font-bold hover:underline flex items-center">
+                                                <i class="fa-solid fa-file-pdf text-red-700 mr-1.5"></i> Lihat PDF
+                                            </button>
+                                            <a href="#" download class="text-brown-600 hover:text-brown-900"><i class="fa-solid fa-download"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2: Media -->
+                                    <div class="bg-white rounded-2xl border border-cream-300 overflow-hidden shadow-sm flex flex-col justify-between">
+                                        <div class="p-4 space-y-2">
+                                            <span class="text-[10px] font-bold text-brown-800 bg-brown-100 px-2.5 py-0.5 rounded-full border border-brown-300">Media Pembelajaran</span>
+                                            <h4 class="font-bold text-brown-900 text-sm">PPT Interaktif & Canva Desain</h4>
+                                            <p class="text-xs text-brown-600">Media visual materi teknik dasar framing kamera.</p>
+                                        </div>
+                                        <div class="bg-cream-50 px-4 py-2.5 border-t border-cream-200 flex justify-between items-center text-xs">
+                                            <button onclick="openImageModal('https://placehold.co/800x500/2c1810/ffffff?text=Media+PPT+Siklus+1', 'Media Pembelajaran Canva & PPT Siklus 1')" class="text-brown-900 font-bold hover:underline flex items-center">
+                                                <i class="fa-solid fa-image text-amber-700 mr-1.5"></i> Preview Media
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 3: Hasil Siswa -->
+                                    <div class="bg-white rounded-2xl border border-cream-300 overflow-hidden shadow-sm flex flex-col justify-between">
+                                        <div class="p-4 space-y-2">
+                                            <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300">Hasil Kerja Siswa</span>
+                                            <h4 class="font-bold text-brown-900 text-sm">Storyboard & Lembar LKPD Siswa</h4>
+                                            <p class="text-xs text-brown-600">Dokumentasi hasil karya peserta didik kelompok 1.</p>
+                                        </div>
+                                        <div class="bg-cream-50 px-4 py-2.5 border-t border-cream-200 flex justify-between items-center text-xs">
+                                            <button onclick="openImageModal('https://placehold.co/800x500/4a2b19/ffffff?text=Hasil+Kerja+Siswa', 'Dokumentasi Hasil LKPD Siswa')" class="text-brown-900 font-bold hover:underline flex items-center">
+                                                <i class="fa-solid fa-images text-emerald-700 mr-1.5"></i> Lihat Galeri
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 4: Lembar Observasi GP & DPL -->
+                                    <div class="bg-white rounded-2xl border border-cream-300 overflow-hidden shadow-sm flex flex-col justify-between">
+                                        <div class="p-4 space-y-2">
+                                            <span class="text-[10px] font-bold text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300">Lembar Observasi</span>
+                                            <h4 class="font-bold text-brown-900 text-sm">Penilaian Guru Pamong & DPL</h4>
+                                            <p class="text-xs text-brown-600">Catatan observer pelaksanaan pembelajaran Siklus 1.</p>
+                                        </div>
+                                        <div class="bg-cream-50 px-4 py-2.5 border-t border-cream-200 flex justify-between items-center text-xs">
+                                            <button onclick="openPdfModal('Lembar Observasi GP & DPL Siklus 1', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')" class="text-brown-900 font-bold hover:underline flex items-center">
+                                                <i class="fa-solid fa-file-pdf text-red-700 mr-1.5"></i> Buka Lembar Observasi
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 5: Video Praktik -->
+                                    <div class="bg-white rounded-2xl border border-cream-300 overflow-hidden shadow-sm flex flex-col justify-between sm:col-span-2">
+                                        <div class="p-4 space-y-2">
+                                            <span class="text-[10px] font-bold text-red-800 bg-red-100 px-2.5 py-0.5 rounded-full border border-red-300">Video Praktik Mengajar</span>
+                                            <h4 class="font-bold text-brown-900 text-sm">Rekaman Video PPL Siklus 1 (Durasi 30 Menit)</h4>
+                                            <p class="text-xs text-brown-600">Video praktik pembelajaran utuh dengan integrasi TPACK.</p>
+                                        </div>
+                                        <div class="bg-cream-50 px-4 py-2.5 border-t border-cream-200 flex justify-between items-center text-xs">
+                                            <button onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ', 'Video Praktik Mengajar Siklus 1')" class="text-brown-900 font-bold hover:underline flex items-center">
+                                                <i class="fa-brands fa-youtube text-red-700 mr-1.5 text-base"></i> Putar Video Praktik
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Analisis Mendalam Template -->
+                                <div class="bg-brown-900 text-cream-100 p-5 rounded-2xl space-y-4">
+                                    <h4 class="font-bold text-amber-300 text-sm flex items-center">
+                                        <i class="fa-solid fa-brain mr-2"></i> Analisis Mendalam Kajian Teori & Praktik (Siklus 1)
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">1. Konteks & Kelebihan Produk</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Penerapan model Problem-Based Learning mampu merangsang siswa merumuskan skenario film pendek secara kolaboratif. Penggunaan media digital Canva meningkatkan ketertarikan visual siswa secara signifikan.
+                                            </p>
+                                        </div>
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">2. Kendala & Kajian Teori Pendidikan</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Kendala teknis koneksi internet saat akses Quizizz diatasi dengan mode offline. Berdasarkan teori <span class="text-white font-semibold">Konstruktivisme Vygotsky</span>, scaffolding yang diberikan guru membantu siswa menuntaskan Zona Perkembangan Proximal (ZPD).
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SIKLUS 2 PANEL -->
+                            <div id="siklus-2" class="cycle-content space-y-6 hidden">
+                                <div class="bg-cream-100 p-4 rounded-2xl border border-cream-300 flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold text-brown-900 text-base">Siklus 2 (Inovasi & Penguatan Pedagogik)</h3>
+                                        <p class="text-xs text-brown-700">Fokus: Pendekatan Project Based Learning (PjBL) pada materi penyuntingan video (Video Editing).</p>
+                                    </div>
+                                    <span class="bg-brown-900 text-cream-100 text-xs px-3 py-1 rounded-full font-semibold">Status: Selesai & Dinilai</span>
+                                </div>
+
+                                <!-- Showcase Artifak Grid Siklus 2 -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-brown-800 bg-brown-100 px-2 py-0.5 rounded-full">Modul Ajar</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Modul Ajar PjBL Siklus 2</h4>
+                                        <button onclick="openPdfModal('Modul Ajar Siklus 2', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-solid fa-file-pdf text-red-700 mr-1"></i> Lihat Dokumen
+                                        </button>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">Media</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Aplikasi Video Editor Simulator</h4>
+                                        <button onclick="openImageModal('https://placehold.co/800x500/6e4228/ffffff?text=Media+Siklus+2', 'Simulator Editing')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-solid fa-image text-amber-700 mr-1"></i> Preview Media
+                                        </button>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">Video Praktik</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Video PPL Siklus 2</h4>
+                                        <button onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ', 'Video Siklus 2')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-brands fa-youtube text-red-700 mr-1"></i> Putar Video
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Analisis Siklus 2 -->
+                                <div class="bg-brown-900 text-cream-100 p-5 rounded-2xl space-y-4">
+                                    <h4 class="font-bold text-amber-300 text-sm flex items-center">
+                                        <i class="fa-solid fa-brain mr-2"></i> Analisis Mendalam Kajian Teori & Praktik (Siklus 2)
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">1. Konteks & Kelebihan Produk</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Siswa berhasil memproduksi hasil akhir berupa video pendek siap tayang. Pendekatan PjBL melatih kemandirian dan manajemen proyek individu maupun kelompok.
+                                            </p>
+                                        </div>
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">2. Kendala & Kajian Teori Pendidikan</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Didasarkan pada teori <span class="text-white font-semibold">Kognitivisme (Piaget)</span> dan pembelajaran bermakna (Ausubel), peserta didik mampu menghubungkan konsep teori pemotongan gambar dengan pengalaman praktik langsung di perangkat komputer.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SIKLUS 3 PANEL -->
+                            <div id="siklus-3" class="cycle-content space-y-6 hidden">
+                                <div class="bg-cream-100 p-4 rounded-2xl border border-cream-300 flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold text-brown-900 text-base">Siklus 3 (Diferensiasi & TaRL)</h3>
+                                        <p class="text-xs text-brown-700">Fokus: Pembelajaran Berdiferensiasi dan Teaching at the Right Level pada Tata Cahaya Studio.</p>
+                                    </div>
+                                    <span class="bg-brown-900 text-cream-100 text-xs px-3 py-1 rounded-full font-semibold">Status: Selesai & Dinilai</span>
+                                </div>
+
+                                <!-- Showcase Artifak Grid Siklus 3 -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-brown-800 bg-brown-100 px-2 py-0.5 rounded-full">Modul Ajar</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Modul Ajar Berdiferensiasi</h4>
+                                        <button onclick="openPdfModal('Modul Ajar Siklus 3', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-solid fa-file-pdf text-red-700 mr-1"></i> Lihat Dokumen
+                                        </button>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">Media</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Flashcard & Alat Peraga Lighting</h4>
+                                        <button onclick="openImageModal('https://placehold.co/800x500/4a2b19/ffffff?text=Flashcard+Lighting', 'Flashcard Tata Cahaya')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-solid fa-image text-amber-700 mr-1"></i> Preview Media
+                                        </button>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">Video Praktik</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Video PPL Siklus 3</h4>
+                                        <button onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ', 'Video Siklus 3')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-brands fa-youtube text-red-700 mr-1"></i> Putar Video
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Analisis Siklus 3 -->
+                                <div class="bg-brown-900 text-cream-100 p-5 rounded-2xl space-y-4">
+                                    <h4 class="font-bold text-amber-300 text-sm flex items-center">
+                                        <i class="fa-solid fa-brain mr-2"></i> Analisis Mendalam Kajian Teori & Praktik (Siklus 3)
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">1. Konteks & Kelebihan Produk</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Pembagian kelompok berdasarkan asesmen diagnostik awal membuat materi tata cahaya dapat diserap optimal oleh seluruh siswa sesuai kapasitas kecepatan belajar masing-masing.
+                                            </p>
+                                        </div>
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">2. Kendala & Kajian Teori Pendidikan</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Mengintegrasikan pendekatan <span class="text-white font-semibold">Teaching at the Right Level (TaRL)</span> dan Teori Kecerdasan Majemuk (Gardner), memberikan ruang bagi siswa kinestetik, visual, dan auditori mengekspresikan pemahamannya.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SIKLUS 4 PANEL -->
+                            <div id="siklus-4" class="cycle-content space-y-6 hidden">
+                                <div class="bg-cream-100 p-4 rounded-2xl border border-cream-300 flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold text-brown-900 text-base">Siklus 4 (Ujian Akhir Semester - UAS & Diseminasi)</h3>
+                                        <p class="text-xs text-brown-700">Fokus: Muara Pembelajaran, Evaluasi Komprehensif, dan Diseminasi Praktik Baik kepada Rekan Sejawat.</p>
+                                    </div>
+                                    <span class="bg-brown-900 text-cream-100 text-xs px-3 py-1 rounded-full font-semibold">Status: Selesai & Dinilai</span>
+                                </div>
+
+                                <!-- Showcase Artifak Grid Siklus 4 -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-brown-800 bg-brown-100 px-2 py-0.5 rounded-full">Laporan Akhir</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Dokumen Portofolio Komprehensif</h4>
+                                        <button onclick="openPdfModal('Laporan Akhir Siklus 4', 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-solid fa-file-pdf text-red-700 mr-1"></i> Lihat Dokumen
+                                        </button>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">Diseminasi</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Dokumentasi Sharing Session Guru</h4>
+                                        <button onclick="openImageModal('https://placehold.co/800x500/2c1810/ffffff?text=Diseminasi+Praktik+Baik', 'Diseminasi Guru')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-solid fa-image text-amber-700 mr-1"></i> Lihat Galeri
+                                        </button>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+                                        <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">Video UAS</span>
+                                        <h4 class="font-bold text-brown-900 text-sm">Video Praktik Puncak Siklus 4</h4>
+                                        <button onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ', 'Video Siklus 4')" class="text-xs text-brown-900 font-bold hover:underline block pt-2">
+                                            <i class="fa-brands fa-youtube text-red-700 mr-1"></i> Putar Video
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Analisis Siklus 4 -->
+                                <div class="bg-brown-900 text-cream-100 p-5 rounded-2xl space-y-4">
+                                    <h4 class="font-bold text-amber-300 text-sm flex items-center">
+                                        <i class="fa-solid fa-brain mr-2"></i> Analisis Mendalam Kajian Teori & Praktik (Siklus 4)
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">1. Konteks & Kelebihan Produk</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Menyajikan muara hasil belajar siswa dalam bentuk pameran karya sinematografi mini. Mendapatkan apresiasi tinggi dari kepala sekolah, guru pamong, dan rekan sejawat dalam forum diseminasi.
+                                            </p>
+                                        </div>
+                                        <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 space-y-2">
+                                            <p class="font-bold text-amber-300">2. Kendala & Kajian Teori Pendidikan</p>
+                                            <p class="text-brown-200 leading-relaxed">
+                                                Mengadopsi konsep <span class="text-white font-semibold">Reflective Practice (Schön)</span> dan transformational learning, di mana guru secara berkelanjutan melakukan evaluasi siklikal guna mencapai standar profesionalisme pendidik seutuhnya.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brown-900 text-brown-200 border-t border-brown-800 mt-16 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row justify-between items-center text-xs space-y-4 sm:space-y-0">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-graduation-cap text-amber-400 text-xl"></i>
+                <div>
+                    <p class="font-bold text-cream-100">E-Portofolio PPG PPL Mandiri • Triputri Nurcahyani, S.Sos.</p>
+                    <p class="text-brown-300">Universitas Negeri Makassar • Program Pendidikan Profesi Guru</p>
+                </div>
+            </div>
+            <div class="text-center sm:text-right">
+                <p>&copy; 2026 All Rights Reserved.</p>
+                <p class="text-brown-300">Dibuat khusus untuk Akuntabilitas Profesionalisme Guru.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL POPUP LIGHTBOX / VIEWER CONTAINER -->
+    <div id="universalModal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
+            <!-- Modal Header -->
+            <div class="bg-brown-900 text-cream-100 px-6 py-4 flex justify-between items-center">
+                <h3 id="modalTitle" class="font-bold text-base truncate">Pratinjau Berkas Artifak</h3>
+                <button onclick="closeModal()" class="text-brown-300 hover:text-white p-1 focus:outline-none">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <!-- Modal Body Content -->
+            <div id="modalBody" class="p-6 overflow-y-auto flex-grow flex items-center justify-center bg-cream-50">
+                <!-- Dynamic Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERACTIVE CONTROLLER -->
+    <script>
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // LK 3 Tab Switching Logic
+        function switchLkTab(tabId) {
+            document.querySelectorAll('.lk-tab-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.lk-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-brown-900', 'text-cream-100');
+                btn.classList.add('bg-cream-200', 'text-brown-800');
+            });
+
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
+            activeBtn.classList.add('bg-brown-900', 'text-cream-100');
+        }
+
+        // Cycle Tab Switching Logic (Siklus 1 - 4)
+        function switchCycleTab(cycleId) {
+            document.querySelectorAll('.cycle-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.cycle-btn').forEach(btn => {
+                btn.classList.remove('bg-brown-900', 'text-cream-100');
+                btn.classList.add('bg-cream-200', 'text-brown-800');
+            });
+
+            document.getElementById(cycleId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + cycleId);
+            activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
+            activeBtn.classList.add('bg-brown-900', 'text-cream-100');
+        }
+
+        // Modal Pop-up Handlers
+        const modal = document.getElementById('universalModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        function openImage(imgSrc, title) {
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<img src="${imgSrc}" alt="${title}" class="max-h-[75vh] rounded-xl shadow-md object-contain">`;
+            modal.classList.remove('hidden');
+        }
+
+        function openImageModal(imgSrc, title) {
+            openImage(imgSrc, title);
+        }
+
+        function openPdfModal(title, pdfUrl) {
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `
+                <div class="w-full h-[70vh] flex flex-col items-center justify-center space-y-4">
+                    <p class="text-brown-

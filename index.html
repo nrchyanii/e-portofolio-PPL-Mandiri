@@ -867,10 +867,16 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
                 btn.classList.add('bg-cream-200', 'text-brown-800');
             });
 
-            document.getElementById(tabId).classList.remove('hidden');
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
             const activeBtn = document.getElementById('btn-' + tabId);
-            activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
-            activeBtn.classList.add('bg-brown-900', 'text-cream-100');
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
+                activeBtn.classList.add('bg-brown-900', 'text-cream-100');
+            }
         }
 
         // Cycle Tab Switching Logic (Siklus 1 - 4)

@@ -936,34 +936,29 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
         </div>
     </div>
 
-    <!-- JAVASCRIPT INTERACTIVE CONTROLLER -->
+   <!-- JAVASCRIPT INTERACTIVE CONTROLLER -->
     <script>
         // Toggle Mobile Menu
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
+            if (menu) menu.classList.toggle('hidden');
         }
 
         // LK 3 Tab Switching Logic
         function switchLkTab(tabId) {
-            // 1. Sembunyikan semua isi tab LK 3
             document.querySelectorAll('.lk-tab-content').forEach(el => {
                 el.classList.add('hidden');
             });
-
-            // 2. Reset status tombol aktif ke warna biasa
             document.querySelectorAll('.lk-tab-btn').forEach(btn => {
                 btn.classList.remove('bg-brown-900', 'text-cream-100');
                 btn.classList.add('bg-cream-200', 'text-brown-800');
             });
 
-            // 3. Munculkan isi tab yang dipilih
             const targetContent = document.getElementById(tabId);
             if (targetContent) {
                 targetContent.classList.remove('hidden');
             }
 
-            // 4. Highlight tombol yang diklik
             const activeBtn = document.getElementById('btn-' + tabId);
             if (activeBtn) {
                 activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
@@ -980,7 +975,7 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
                 btn.classList.remove('bg-brown-900', 'text-cream-100');
                 btn.classList.add('bg-cream-200', 'text-brown-800');
             });
-            
+
             const targetCycle = document.getElementById(cycleId);
             if (targetCycle) {
                 targetCycle.classList.remove('hidden');
@@ -992,10 +987,69 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
                 activeBtn.classList.add('bg-brown-900', 'text-cream-100');
             }
         }
-        
-    </script>
-</body>
-</html>
+
+        // Modal Handlers
+        const modal = document.getElementById('universalModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        function openPdfModal(title, pdfUrl) {
+            if (!modal || !modalTitle || !modalBody) return;
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<iframe src="${pdfUrl}" class="w-full h-[75vh] rounded-xl" frameborder="0"></iframe>`;
+            modal.classList.remove('hidden');
+        }
+
+        function openImageModal(imgSrc, title) {
+            if (!modal || !modalTitle || !modalBody) return;
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<img src="${imgSrc}" alt="${title}" class="max-h-[75vh] rounded-xl object-contain">`;
+            modal.classList.remove('hidden');
+        }
+
+        function openVideoModal(videoUrl, title) {
+            if (!modal || !modalTitle || !modalBody) return;
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<iframe src="${videoUrl}" class="w-full h-[65vh] rounded-xl" frameborder="0" allowfullscreen></iframe>`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            if (modal) {
+                modal.classList.add('hidden');
+                modalBody.innerHTML = '';
+            }
+        }
+
+        // Data & Logical Slider Non-Mengajar
+        const nonMengajarData = [
+            { img: 'poto-mengajar.jpeg', desc: '1. Pendampingan kegiatan piket salam sapa siswa di gerbang sekolah setiap pagi.' },
+            { img: 'poto-ppl.jpg', desc: '2. Pelaksanaan administrasi persekolahan dan pendampingan ekstrakurikuler.' },
+            { img: 'poto-mengajar.jpeg', desc: '3. Partisipasi dalam rapat dewan guru dan evaluasi pembelajaran mingguan.' }
+        ];
+
+        let currentSlideIndex = 0;
+
+        function updateNonMengajarSlide() {
+            const imgEl = document.getElementById('nonMengajarImg');
+            const descEl = document.getElementById('slideDesc');
+            const counterEl = document.getElementById('slideCounter');
+            if (imgEl && descEl && counterEl) {
+                imgEl.src = nonMengajarData[currentSlideIndex].img;
+                descEl.innerText = nonMengajarData[currentSlideIndex].desc;
+                counterEl.innerText = `${currentSlideIndex + 1} / ${nonMengajarData.length}`;
+            }
+        }
+
+        function nextSlideNonMengajar() {
+            currentSlideIndex = (currentSlideIndex + 1) % nonMengajarData.length;
+            updateNonMengajarSlide();
+        }
+
+        function prevSlideNonMengajar() {
+            currentSlideIndex = (currentSlideIndex - 1 + nonMengajarData.length) % nonMengajarData.length;
+            updateNonMengajarSlide();
+        }
     </script>
 </body>
 </html>

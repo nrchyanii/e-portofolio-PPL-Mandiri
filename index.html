@@ -443,22 +443,6 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
                                     <p class="text-brown-700">Penyusunan RPP mengacu pada taksonomi Bloom revisi dan kerangka TPACK untuk memetakan konten materi dengan strategi pedagogik digital.</p>
                                 </div>
                             </div>
-<!-- TAB CONTENT PANELS -->
-        <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300 min-h-[220px]">
-            <!-- Tab 1: Rancangan -->
-            <div id="lk-rancangan" class="lk-tab-content space-y-3">
-                <h3 class="font-bold text-brown-900 text-base">Analisis Produk Rancangan / Perencanaan Pembelajaran</h3>
-                <p class="text-xs text-brown-800 leading-relaxed">
-                    Modul Ajar/RPP pada materi <span class="font-semibold text-brown-950">Pola dan Format Program Siaran Televisi</span> ini dirancang menggunakan pendekatan Understanding by Design (UbD)...
-                </p>
-                <div class="bg-white p-3 rounded-xl border border-cream-300 text-xs space-y-1">
-                    <p class="font-semibold text-brown-900">
-                        <i class="fa-solid fa-circle-info text-amber-700 mr-1"></i>
-                        <a href="https://drive.google.com/file/d/1pvD4CVSeXmX82IVIq8rAcujSe4zbtlY3/view?usp=sharing" target="_blank" class="hover:underline hover:text-amber-800">Integrasi Teori RPP</a>
-                    </p>
-                    <p class="text-brown-700">Penyusunan RPP mengacu pada taksonomi Bloom revisi dan kerangka TPACK untuk memetakan konten materi dengan strategi pedagogik digital.</p>
-                </div>
-            </div>
 
             <!-- Tab 2: Materi -->
             <div id="lk-materi" class="lk-tab-content space-y-3 hidden">
@@ -867,19 +851,24 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
 
         // LK 3 Tab Switching Logic
         function switchLkTab(tabId) {
+            // 1. Sembunyikan semua isi tab LK 3
             document.querySelectorAll('.lk-tab-content').forEach(el => {
                 el.classList.add('hidden');
             });
+
+            // 2. Reset status tombol aktif ke warna biasa
             document.querySelectorAll('.lk-tab-btn').forEach(btn => {
                 btn.classList.remove('bg-brown-900', 'text-cream-100');
                 btn.classList.add('bg-cream-200', 'text-brown-800');
             });
 
+            // 3. Munculkan isi tab yang dipilih
             const targetContent = document.getElementById(tabId);
             if (targetContent) {
                 targetContent.classList.remove('hidden');
             }
 
+            // 4. Highlight tombol yang diklik
             const activeBtn = document.getElementById('btn-' + tabId);
             if (activeBtn) {
                 activeBtn.classList.remove('bg-cream-200', 'text-brown-800');

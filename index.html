@@ -885,11 +885,17 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
                 btn.classList.remove('bg-brown-900', 'text-cream-100');
                 btn.classList.add('bg-cream-200', 'text-brown-800');
             });
+            
+            const targetCycle = document.getElementById(cycleId);
+            if (targetCycle) {
+                targetCycle.classList.remove('hidden');
+            }
 
-            document.getElementById(cycleId).classList.remove('hidden');
             const activeBtn = document.getElementById('btn-' + cycleId);
-            activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
-            activeBtn.classList.add('bg-brown-900', 'text-cream-100');
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-cream-200', 'text-brown-800');
+                activeBtn.classList.add('bg-brown-900', 'text-cream-100');
+            }
         }
 
         // Modal Pop-up Handlers
@@ -898,6 +904,7 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
         const modalBody = document.getElementById('modalBody');
 
         function openImage(imgSrc, title) {
+            if (!modal || !modalTitle || !modalBody) return;
             modalTitle.innerText = title;
             modalBody.innerHTML = `<img src="${imgSrc}" alt="${title}" class="max-h-[75vh] rounded-xl shadow-md object-contain">`;
             modal.classList.remove('hidden');
@@ -908,7 +915,25 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
         }
 
         function openPdfModal(title, pdfUrl) {
+            if (!modal || !modalTitle || !modalBody) return;
             modalTitle.innerText = title;
-            modalBody.innerHTML = `
-                <div class="w-full h-[70vh] flex flex-col items-center justify-center space-y-4">
-                    <p class="text-brown-
+            modalBody.innerHTML = `<iframe src="${pdfUrl}" class="w-full h-[75vh] rounded-xl" frameborder="0"></iframe>`;
+            modal.classList.remove('hidden');
+        }
+
+        function openVideoModal(videoUrl, title) {
+            if (!modal || !modalTitle || !modalBody) return;
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<iframe src="${videoUrl}" class="w-full h-[65vh] rounded-xl" frameborder="0" allowfullscreen></iframe>`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            if (modal) {
+                modal.classList.add('hidden');
+                modalBody.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -532,6 +532,45 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
     </div>
 </div>
 
+            <!-- Tab 5: Non-Mengajar -->
+<div id="lk-non-mengajar" class="lk-tab-content space-y-3 hidden">
+    <h3 class="font-bold text-brown-900 text-base">Analisis & Dokumentasi Kegiatan Non-Mengajar</h3>
+    <p class="text-xs text-brown-800 leading-relaxed">
+        Dokumentasi kontribusi aktif dalam kegiatan manajerial, ekstrakurikuler, serta tata kelola persekolahan di SMKN 2 Makassar:
+    </p>
+
+    <!-- CAROUSEL CONTAINER (Disesuaikan dengan ukuran ruang) -->
+    <div class="max-w-md mx-auto bg-white p-3 rounded-2xl border border-cream-300 shadow-sm space-y-2">
+        <!-- Frame Foto Slide -->
+        <div class="relative aspect-video w-full rounded-xl overflow-hidden bg-black flex items-center justify-center">
+            <!-- Foto 1 -->
+            <img id="nonMengajarImg" src="poto-mengajar.jpeg" alt="Dokumentasi Non-Mengajar" class="w-full h-full object-cover transition-all duration-300">
+            
+            <!-- Tombol Panah Kiri -->
+            <button onclick="prevSlideNonMengajar()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center transition text-xs">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <!-- Tombol Panah Kanan -->
+            <button onclick="nextSlideNonMengajar()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center transition text-xs">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Counter Indikator -->
+            <span id="slideCounter" class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full font-medium">
+                1 / 3
+            </span>
+        </div>
+
+        <!-- Deskripsi Foto Dynamic -->
+        <div class="bg-cream-50 p-2.5 rounded-xl border border-cream-200 text-xs">
+            <p id="slideDesc" class="text-brown-800 leading-snug font-medium">
+                1. Pendampingan kegiatan piket salam sapa siswa di gerbang sekolah setiap pagi.
+            </p>
+        </div>
+    </div>
+</div>
+                            
             <!-- Tab 6: Assessment -->
             <div id="lk-assessment" class="lk-tab-content space-y-3 hidden">
                 <h3 class="font-bold text-brown-900 text-base">Analisis Assessment</h3>
@@ -989,7 +1028,49 @@ Penyusunan modul ini mengintegrasikan kerangka kerja TPACK melalui pemanfaatan m
                 modal.classList.add('hidden');
                 modalBody.innerHTML = '';
             }
+
+        // Data Foto & Deskripsi Kegiatan Non-Mengajar
+        const nonMengajarData = [
+            {
+                img: 'poto-mengajar.jpeg', // Ganti dengan nama/path foto 1
+                desc: '1. Pendampingan kegiatan piket salam sapa siswa di gerbang sekolah setiap pagi.'
+            },
+            {
+                img: 'poto-ppl.jpg', // Ganti dengan nama/path foto 2
+                desc: '2. Pelaksanaan administrasi persekolahan dan pendampingan ekstrakurikuler.'
+            },
+            {
+                img: 'poto-mengajar.jpeg', // Ganti dengan nama/path foto 3
+                desc: '3. Partisipasi dalam rapat dewan guru dan evaluasi pembelajaran mingguan.'
+            }
+        ];
+
+        let currentSlideIndex = 0;
+
+        function updateNonMengajarSlide() {
+            const imgEl = document.getElementById('nonMengajarImg');
+            const descEl = document.getElementById('slideDesc');
+            const counterEl = document.getElementById('slideCounter');
+            
+            if (imgEl && descEl && counterEl) {
+                imgEl.src = nonMengajarData[currentSlideIndex].img;
+                descEl.innerText = nonMengajarData[currentSlideIndex].desc;
+                counterEl.innerText = `${currentSlideIndex + 1} / ${nonMengajarData.length}`;
+            }
         }
+
+        function nextSlideNonMengajar() {
+            currentSlideIndex = (currentSlideIndex + 1) % nonMengajarData.length;
+            updateNonMengajarSlide();
+        }
+
+        function prevSlideNonMengajar() {
+            currentSlideIndex = (currentSlideIndex - 1 + nonMengajarData.length) % nonMengajarData.length;
+            updateNonMengajarSlide();
+        }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>

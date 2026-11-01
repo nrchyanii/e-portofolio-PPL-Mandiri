@@ -390,27 +390,38 @@
                         </div>
 
                         <!-- Interactive Tab Buttons for LK 3 -->
-                        <div class="flex space-x-1 border-b border-cream-300 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold">
-                            <button onclick="switchLkTab('lk-rancangan')" id="btn-lk-rancangan" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-brown-900 text-cream-100 transition whitespace-nowrap">
-                                <i class="fa-solid fa-file-pen mr-1"></i> 1. Rancangan / RPP
-                            </button>
-                            <button onclick="switchLkTab('lk-materi')" id="btn-lk-materi" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
-                                <i class="fa-solid fa-book-open mr-1"></i> 2. Materi Ajar
-                            </button>
-                            <button onclick="switchLkTab('lk-media')" id="btn-lk-media" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
-                                <i class="fa-solid fa-photo-film mr-1"></i> 3. Media Pembelajaran
-                            </button>
-                            <button onclick="switchLkTab('lk-video')" id="btn-lk-video" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
-                                <i class="fa-solid fa-video mr-1"></i> 4. Video Praktik
-                            </button>
-                            <button onclick="switchLkTab('lk-non-mengajar')" id="btn-lk-non-mengajar" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
-                                <i class="fa-solid fa-building-columns mr-1"></i> 5. Non-Mengajar
-                            </button>
-                            <button onclick="switchLkTab('lk-assessment')" id="btn-lk-assessment" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
-                                <i class="fa-solid fa-chart-line mr-1"></i> 6. Assessment
-                            </button>
-                        </div>
+                        <!-- Interactive Tab Buttons for LK 3 -->
+<div class="flex space-x-1 border-b border-cream-300 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold">
+    <!-- Tombol 1 -->
+    <button onclick="switchLkTab('lk-rancangan')" id="btn-lk-rancangan" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-brown-900 text-cream-100 transition whitespace-nowrap">
+        <i class="fa-solid fa-file-pen mr-1"></i> 1. Rancangan / RPP
+    </button>
 
+    <!-- Tombol 2 (Pastikan TIDAK ADA class 'hidden' di tombol) -->
+    <button onclick="switchLkTab('lk-materi')" id="btn-lk-materi" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+        <i class="fa-solid fa-book-open mr-1"></i> 2. Materi Ajar
+    </button>
+
+    <!-- Tombol 3 -->
+    <button onclick="switchLkTab('lk-media')" id="btn-lk-media" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+        <i class="fa-solid fa-photo-film mr-1"></i> 3. Media Pembelajaran
+    </button>
+
+    <!-- Tombol 4 -->
+    <button onclick="switchLkTab('lk-video')" id="btn-lk-video" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+        <i class="fa-solid fa-video mr-1"></i> 4. Video Praktik
+    </button>
+
+    <!-- Tombol 5 -->
+    <button onclick="switchLkTab('lk-non-mengajar')" id="btn-lk-non-mengajar" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+        <i class="fa-solid fa-building-columns mr-1"></i> 5. Non-Mengajar
+    </button>
+
+    <!-- Tombol 6 -->
+    <button onclick="switchLkTab('lk-assessment')" id="btn-lk-assessment" class="lk-tab-btn px-4 py-2.5 rounded-t-xl bg-cream-200 text-brown-800 hover:bg-brown-200 transition whitespace-nowrap">
+        <i class="fa-solid fa-chart-line mr-1"></i> 6. Assessment
+    </button>
+</div>
                         <!-- TAB CONTENT PANELS -->
                         <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300 min-h-[220px]">
                             
